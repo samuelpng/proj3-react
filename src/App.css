@@ -1,38 +1,74 @@
-.App {
+/* below is for centering navbar when collapse */
+/* .navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.navbar .navbar-collapse {
   text-align: center;
+} */
+
+.card {
+  border: 0px !important
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.card:hover{
+  transform: scale(1.02);
+  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.card-img-top:hover {
+  display: none
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.card .back-img {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+
+.card:hover .back-img {
+  display: inline;
+}
+
+.sizeBox-container {
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.sizeBox {
+    width: 80px;
+    border: 2px solid black;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+    box-sizing: border-box;
+}
+
+.sizeBox:hover {
+  width: 80px;
+  border: 2px solid black;
+  background-color: black;
   color: white;
+  padding: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.accordion-button:focus {
+  box-shadow: none !important;
+  border-color: rgba(0,0,0,.125) !important;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.accordion-button:not(.collapsed){
+  box-shadow: none !important;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #fff !important;
+  color: black !important
 }
