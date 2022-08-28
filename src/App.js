@@ -13,6 +13,7 @@ import Variants from './pages/Variants';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ProductsListing from './pages/ProductsListing';
 
 // === Providers ===
 import ProductsProvider from './providers/ProductsProvider';
@@ -28,6 +29,7 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/products" element={<ProductsProvider><Products /></ProductsProvider>} />
+            <Route path="/boots" element={<ProductsProvider><ProductsListing /></ProductsProvider>} />
             <Route path="/products/:productId" element={<ProductsProvider><Variants /></ProductsProvider>} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

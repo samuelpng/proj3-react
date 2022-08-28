@@ -81,7 +81,7 @@ export default function Variants(props) {
                                             <div className="sizeBox" style={{ cursor: "pointer" }}>
                                                 {v.size.size}
                                             </div>
-                                            
+
                                         </Fragment>
                                     )
                                 })}

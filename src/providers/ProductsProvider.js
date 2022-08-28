@@ -35,6 +35,11 @@ export default function ProductsProvider(props) {
             })
             return response;
         },
+        search: async (searchParams)=>{
+            console.log(searchParams)
+            let response = await axios.post(BASE_URL + '/products/search', {searchParams})
+            return response.data
+        }
     }
 
 
