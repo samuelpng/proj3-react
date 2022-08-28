@@ -24,7 +24,7 @@ export default function ProductsProvider(props) {
 
     const context = {
         getProducts: () => {
-            console.log(products)
+            // console.log(products)
             return products.products
         },
         getProductById: (productId) => {
@@ -38,7 +38,7 @@ export default function ProductsProvider(props) {
         },
         search: async (searchQuery)=>{
 
-            console.log(searchQuery)
+            // console.log(searchQuery)
             let response = await axios.post(BASE_URL + '/products/search', searchQuery)
             return response.data
         },
