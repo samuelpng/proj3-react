@@ -6,7 +6,8 @@ import axios from 'axios';
 //=== Contexts ===
 import ProductsContext from "../contexts/ProductsContext";
 
-const BASE_URL = 'https://kicks-city.herokuapp.com/api';
+// const BASE_URL = 'https://kicks-city.herokuapp.com/api';
+const BASE_URL = 'https://8000-samuelpng-proj3express-iwcbe9cedes.ws-us63.gitpod.io/api'
 
 export default function ProductsProvider(props) {
 
@@ -23,23 +24,49 @@ export default function ProductsProvider(props) {
 
     const context = {
         getProducts: () => {
-            return products
+            console.log(products)
+            return products.products
         },
-
         getProductById: (productId) => {
             let response = '';
-            products.map(p => {
+            products.products.map(p => {
                 if (p.id === productId) {
                     return response = p
                 }
             })
             return response;
         },
-        search: async (searchParams)=>{
-            console.log(searchParams)
-            let response = await axios.post(BASE_URL + '/products/search', {searchParams})
+        search: async (searchQuery)=>{
+
+            console.log(searchQuery)
+            let response = await axios.post(BASE_URL + '/products/search', searchQuery)
             return response.data
+        },
+        getBrands: () => {
+            return products.brands
+        },
+        getCollections: () => {
+            return products.collections
+        },
+        getMaterials: () => {
+            return products.materials
+        },
+        getColours: () => {
+            return products.colours
+        },
+        getSurfaces: () => {
+            return products.surfaces
+        },
+        getClosures: () => {
+            return products.closures
+        },
+        getCuttings: () => {
+            return products.cuttings
+        },
+        getPositions: () => {
+            return products.positions
         }
+
     }
 
 
