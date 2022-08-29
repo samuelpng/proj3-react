@@ -13,9 +13,9 @@
   border: 0px !important
 }
 
-.card:hover{
+.card:hover {
   transform: scale(1.02);
-  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
 }
 
 .card-img-top:hover {
@@ -35,20 +35,20 @@
 }
 
 .sizeBox-container {
-  display:flex;
+  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
 
 .sizeBox {
-    width: 80px;
-    border: 2px solid black;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 17px;
-    box-sizing: border-box;
+  width: 80px;
+  border: 2px solid black;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 17px;
+  box-sizing: border-box;
 }
 
 .sizeBox:hover {
@@ -62,19 +62,19 @@
 .accordion button,
 .accordion button:active,
 .accordion button:focus {
-    border-bottom: 1px solid #5f402743;
-    background: none !important;
-    outline: 0px !important;
-    box-shadow: none !important;
+  border-bottom: 1px solid #5f402743;
+  background: none !important;
+  outline: 0px !important;
+  box-shadow: none !important;
 }
 
 .accordion-item,
 .accordion-header,
 .accordion-body {
-    background: none !important;
-    border: none !important;
-    outline: 0px !important;
-    box-shadow: none !important;
+  background: none !important;
+  border: none !important;
+  outline: 0px !important;
+  box-shadow: none !important;
 }
 
 /* .accordion-button:focus {
@@ -82,7 +82,7 @@
   border-color: rgba(0,0,0,.125) !important;
 } */
 
-.accordion-button:not(.collapsed){
+.accordion-button:not(.collapsed) {
   box-shadow: none !important;
 }
 
@@ -92,19 +92,82 @@
 }
 
 .accordion-button:not(.collapsed)::after {
-  background-image: 
-  url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
+  background-image:
+    url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
 }
 
-/* #colourCheckbox {
+.colourCheckbox {
   display: none;
-} */
+}
 
-.colourCircle {
+.colourBox {
   height: 25px;
   width: 25px;
-  background-color: #bbb;
-  border: 1px solid black;
-  border-radius: 50%;
+  border: 3px solid black;
+  border-radius: 0;
   display: inline-block;
+}
+
+.uncheckColour {
+  opacity: 0.6;
+  border: 1px solid gray;
+
+}
+
+.resetFilters {
+  position: absolute;
+  right: 15%;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #0c06019f
+}
+
+.form-control {
+  border: 1px solid black !important
+}
+
+.imagePlaceholder {
+  width: 100%;
+  background-color: rgb(226, 224, 224);
+}
+
+/* card loading css */
+
+.cardLoad {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.card__content {
+  padding: 20px;
+}
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+.card__image,
+.loadTitle,
+.loadText {
+  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  border-radius: 5px;
+  background-size: 200% 100%;
+  animation: 1s shine linear infinite;
+}
+.card__image {
+  height: 200px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.card__content {
+  padding: 20px;
+}
+.loadTitle {
+  height: 30px;
+}
+.loadText {
+  height: 70px;
+  width: 80%;
 }

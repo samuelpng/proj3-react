@@ -1,37 +1,65 @@
 import { Fragment, useContext, useState, useEffect } from 'react';
 import ProductsContext from '../contexts/ProductsContext';
-import { Carousel, Container, Badge, Button, Accordion } from 'react-bootstrap';
+import { Carousel, Container, Badge, Button, Accordion, Placeholder, Card } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import '../App.css';
 
 export default function Variants(props) {
-    const BASE_URL = 'https://kicks-city.herokuapp.com/api/products/'
+    // const BASE_URL = 'https://kicks-city.herokuapp.com/api/products/'
+    const BASE_URL = 'https://8000-samuelpng-proj3express-iwcbe9cedes.ws-us63.gitpod.io/api/products/'
+
 
     const { productId } = useParams();
     const [variants, setVariants] = useState([]);
+    const [product, setProduct] = useState("");
     const [selectedVariant, setSelectedVariant] = useState([]);
 
-    const context = useContext(ProductsContext);
-    const product = context.getProductById(parseInt(productId))
-    console.log(product)
+    // const context = useContext(ProductsContext);
+    // const product = context.getProductById(parseInt(productId))
+    // console.log(product)
+    
 
-    const getVariants = async (productId) => {
+    const getProductData = async (productId) => {
         let response = await axios.get(BASE_URL + productId)
-        const variants = response.data
+        const variants = response.data.variants
+        const product = response.data.product
         setVariants(variants)
-        console.log(variants)
+        setProduct(product)
     }
+
+    // const getProduct = async (productId) => {
+    //     let response = await axios.get(BASE_URL + productId)
+    //     const product = response.data.product
+    //     setProduct(product)
+    // }
+
+    // useEffect(() => {
+
+    //     const fetchVariants = async () => {
+    //         await getVariants(productId)
+    //     }
+    //     fetchVariants();
+    // }, [])
 
     useEffect(() => {
         console.log(productId)
-        const fetchVariants = async () => {
-            await getVariants(productId)
+        const fetchProductData = async () => {
+            await getProductData(productId)
         }
-        fetchVariants();
+        // const fetchVariants = async () => {
+        //     await getVariants(productId)
+        // }
+        fetchProductData();
+        // fetchVariants();
     }, [])
 
-    if (product) {
+
+
+
+   
+
+if (product) {
         return (
             <Fragment>
                 {/* <h1>{product.name}</h1> */}
@@ -119,6 +147,29 @@ export default function Variants(props) {
                     <div style={{ height: "30px" }}></div>
                 </Container>
             </Fragment>
+        )
+    } else {
+        return(
+            <Container>
+            <div className="row">
+                <div className="col-md-7 mt-5 imagePlaceholder"></div>
+                <div className="col-12 col-md-5 mt-5">     
+                            <Placeholder as={Card.Title} animation="glow">
+                                <Placeholder xs={6} />
+                            </Placeholder>
+                            <Placeholder as={Card.Text} animation="glow">
+                                <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}
+                                <Placeholder xs={6} className="mt-3" /> <Placeholder xs={8} />
+                                <Placeholder xs={6} className="mt-3"/> <Placeholder xs={8} />
+                                <Placeholder xs={6} className="mt-3"/> <Placeholder xs={8} />
+                                <Placeholder xs={6} className="mt-3"/> <Placeholder xs={8} />
+                                <Placeholder xs={6} className="mt-3"/> <Placeholder xs={8} />
+                                <Placeholder xs={6} className="mt-3"/> <Placeholder xs={8} />
+                                <Placeholder xs={9} className="mt-3"/> <Placeholder xs={3} />
+                            </Placeholder>
+                </div>
+            </div>
+        </Container>
         )
     }
 

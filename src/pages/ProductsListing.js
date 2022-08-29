@@ -3,7 +3,7 @@ import '../App.css';
 import ProductsContext from '../contexts/ProductsContext';
 import { Container, Card, Button, Placeholder, Offcanvas, Form, Accordion } from "react-bootstrap";
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import useStateWithCallback from 'use-state-with-callback';
+import CardPlaceholder from "../components/CardPlaceholer";
 
 
 const options = [
@@ -27,7 +27,6 @@ export default function ProductsListing(props) {
 
     const [globalSearch, setGlobalSearch] = useState('')
     const [brandSearch, setBrandSearch] = useState([])
-    // const [brandSearch, setBrandSearch] = useStateWithCallback([], search())
     const [collectionSearch, setCollectionSearch] = useState([])
     const [materialSearch, setMaterialSearch] = useState([])
     const [colourSearch, setColourSearch] = useState([])
@@ -35,7 +34,6 @@ export default function ProductsListing(props) {
     const [closureSearch, setClosureSearch] = useState([])
     const [cuttingSearch, setCuttingSearch] = useState([])
     const [positionSearch, setPositionSearch] = useState([])
-
     const [searchResults, setSearchResults] = useState([])
 
     //show products when page loaded
@@ -158,7 +156,7 @@ export default function ProductsListing(props) {
 
     useEffect(() => {
         search();
-    }, [updateBrandSearch])
+    }, [brandSearch, collectionSearch, materialSearch, colourSearch, surfaceSearch, closureSearch, cuttingSearch, positionSearch])
 
 
     const search = async () => {
@@ -206,42 +204,59 @@ export default function ProductsListing(props) {
         return (
             <Fragment>
                 <Container>
-                    <h1>Football Boots</h1>
                     {/* {brandSearch ? <span className="mb-3">Applied: {brandSearch} </span>: ""}  */}
-
-                    <input id='globalSearch' name='globalSearch' type="text" className='form-control mb-3'
-                        value={globalSearch} onChange={(e) => { updateGlobalSearch(e.target.value) }}
-                        onKeyUp={(e) => { enterSearch(e) }} />
-                    <Button variant="primary" onClick={toggleShow} className="me-2">
-                        Search Filters
-                    </Button>
-
-                    <div className='row'>
-                        {searchResults.map(p => {
-                            return (
-                                <div className="col-12 col-md-6 col-lg-3 mb-2" key={p.id}>
-                                    <Card style={{ cursor: "pointer", textDecoration: 'none', color: 'black' }} as={Link} to={`/products/${p.id}`}>
-                                        <Card.Img variant="top" src={p.image_url} />
-                                        <Card.Img variant="top" className="back-img" src={p.image_url2} />
-                                        <Card.Body>
-                                            <Card.Title>{p.name}</Card.Title>
-                                            <Card.Text>
-                                                {p.surface.surface} Boots <br />
-                                                S$ {(p.cost / 100).toFixed(2)}
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </div>
-                            );
-                        })}
+                    <h1>Boot Room</h1>
+                    <div className="row">
+                        <div className="col-lg-9 d-flex">
+                            <input id='globalSearch' name='globalSearch' type="text" className='form-control rounded-0 mb-3' style={{ width: "80%" }}
+                                value={globalSearch} onChange={(e) => { updateGlobalSearch(e.target.value) }}
+                                onKeyUp={(e) => { enterSearch(e) }} />
+                            <Button variant="dark rounded-0" onClick={search} className=" mb-3 " style={{ width: "20%" }}> Search
+                            </Button>
+                        </div>
+                        {/* <div className="col-lg-3">
+                            <Button variant="dark rounded-0" onClick={toggleShow} py-0 className=" mb-3 "> Search
+                            </Button>
+                        </div> */}
+                        <div className="col-lg-3">
+                            <Button variant="dark rounded-0 mb-3" onClick={toggleShow} style={{ width: '100%' }}>
+                                Filters
+                            </Button>
+                        </div>
                     </div>
+                    {brands ?
+                        <div className='row'>
+                            {searchResults.map(p => {
+                                return (
+                                    <div className="col-12 col-md-6 col-lg-3 mb-2" key={p.id}>
+                                        <Card style={{ cursor: "pointer", textDecoration: 'none', color: 'black' }} as={Link} to={`/products/${p.id}`}>
+                                            <Card.Img variant="top" src={p.image_url} />
+                                            <Card.Img variant="top" className="back-img" src={p.image_url2} />
+                                            <Card.Body>
+                                                <Card.Title>{p.name}</Card.Title>
+                                                <Card.Text>
+                                                    {p.surface.surface} Boots <br />
+                                                    S$ {(p.cost / 100).toFixed(2)}
+                                                </Card.Text>
+                                            </Card.Body>
+                                        </Card>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                        : 
+                        
+                        <CardPlaceholder />
+ 
+                        }
+                        
                     <div style={{ height: "50px" }}></div>
                 </Container>
 
                 <Offcanvas show={show} onHide={handleClose} {...props}
                     scroll={true} backdrop={true} placement={'end'}>
                     <Offcanvas.Header closeButton>
-                        <Offcanvas.Title>Filter</Offcanvas.Title>
+                        <Offcanvas.Title>Filter <span className="resetFilters">Clear All</span></Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body>
 
@@ -252,7 +267,7 @@ export default function ProductsListing(props) {
 
                                     {brands ?
                                         brands.map((b) => (
-                                            <Form.Group className="mb-1" controlId="brands" key={b[0]}>
+                                            <Form.Group className="mb-1" controlId={b[1]} key={b[0]}>
                                                 <Form.Check type="checkbox" inline key={b[0]} label={b[1]} name="brandSearch"
                                                     value={b[0]} checked={brandSearch.includes(b[0].toString())}
                                                     onChange={updateBrandSearch} />
@@ -268,7 +283,7 @@ export default function ProductsListing(props) {
 
                                     {collections ?
                                         collections.map((b) => (
-                                            <Form.Group className="mb-1" controlId="collections" key={b[0]}>
+                                            <Form.Group className="mb-1" controlId={b[1]} key={b[0]}>
                                                 <Form.Check type="checkbox" inline key={b[0]} label={b[1]} name="collectionSearch"
                                                     value={b[0]} checked={collectionSearch.includes(b[0].toString())}
                                                     onChange={updateCollectionSearch} />
@@ -284,7 +299,7 @@ export default function ProductsListing(props) {
 
                                     {materials ?
                                         materials.map((b) => (
-                                            <Form.Group className="mb-1" controlId="materials" key={b[0]}>
+                                            <Form.Group className="mb-1" controlId={b[1]} key={b[0]}>
                                                 <Form.Check type="checkbox" inline key={b[0]} label={b[1]} name="materialSearch"
                                                     value={b[0]} checked={materialSearch.includes(b[0].toString())}
                                                     onChange={updateMaterialSearch} />
@@ -307,18 +322,22 @@ export default function ProductsListing(props) {
                
                                         ))
                                         : ""} */}
-                                    
+
                                     {colours ?
                                         colours.map((c) => (
-                                         <span class="me-3">
-                                            <input type="checkbox" id="colourCheckbox" key={c[0]} name="colourSearch" 
-                                            value={c[0]} checked={colourSearch.includes(c[0].toString())} onChange={updateColourSearch}/>
-                                            <label for="colourSearch" key={c[0]} ><span className="colourCircle" style={{backgroundColor: c[1] }}></span></label>
+                                            <span class="me-3" key={c[0]}>
+                                                <input type="checkbox" key={c[1]} name="colourSearch" id={c[1]} className="colourCheckbox"
+                                                    value={c[0]} checked={colourSearch.includes(c[0].toString())} onChange={updateColourSearch} />
+                                                <label htmlFor={c[1]} key={c[0]} >
+                                                    <span className={colourSearch.includes(c[0].toString()) ? 'colourBox' : 'colourBox uncheckColour'}
+                                                        style={{ backgroundColor: c[1] }}></span>
+                                                </label>
                                             </span>
                                         ))
                                         : ""}
 
-                                        
+
+
                                     {/* {colours ?
                                         colours.map((c) => {
                                             <div>
@@ -338,7 +357,7 @@ export default function ProductsListing(props) {
 
                                     {surfaces ?
                                         surfaces.map((b) => (
-                                            <Form.Group className="mb-1" controlId="surfaces" key={b[0]}>
+                                            <Form.Group className="mb-1" controlId={b[1]} key={b[0]}>
                                                 <Form.Check type="checkbox" inline key={b[0]} label={b[1]} name="surfaceSearch"
                                                     value={b[0]} checked={surfaceSearch.includes(b[0].toString())}
                                                     onChange={updateSurfaceSearch} />
@@ -354,7 +373,7 @@ export default function ProductsListing(props) {
 
                                     {closures ?
                                         closures.map((b) => (
-                                            <Form.Group className="mb-1" controlId="closures" key={b[0]}>
+                                            <Form.Group className="mb-1" controlId={b[1]} key={b[0]}>
                                                 <Form.Check type="checkbox" inline key={b[0]} label={b[1]} name="closureSearch"
                                                     value={b[0]} checked={closureSearch.includes(b[0].toString())}
                                                     onChange={updateClosureSearch} />
@@ -370,7 +389,7 @@ export default function ProductsListing(props) {
 
                                     {cuttings ?
                                         cuttings.map((c) => (
-                                            <Form.Group className="mb-1" controlId="cuttings" key={c[0]}>
+                                            <Form.Group className="mb-1" controlId={c[1]} key={c[0]}>
                                                 <Form.Check type="checkbox" inline key={c[0]} label={c[1]} name="cuttingSearch"
                                                     value={c[0]} checked={cuttingSearch.includes(c[0].toString())}
                                                     onChange={updateCuttingSearch} />
@@ -386,7 +405,7 @@ export default function ProductsListing(props) {
 
                                     {positions ?
                                         positions.map((b) => (
-                                            <Form.Group className="mb-1" controlId="positions" key={b[0]}>
+                                            <Form.Group className="mb-1" controlId={b[1]} key={b[0]}>
                                                 <Form.Check type="checkbox" inline key={b[0]} label={b[1]} name="positionSearch"
                                                     value={b[0]} checked={positionSearch.includes(b[0].toString())}
                                                     onChange={updatePositionSearch} />
@@ -429,5 +448,4 @@ export default function ProductsListing(props) {
             </Container>
         )
     }
-
 }

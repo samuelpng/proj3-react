@@ -22,7 +22,7 @@ export default function Products(props) {
                   <Card style={{ cursor: "pointer", textDecoration: 'none', color: 'black' }} as={Link} to={`/products/${p.id}`}>
                     {/* to add onclick in card tag */}
                     <Card.Img variant="top" src={p.image_url} />
-                    <Card.Img variant="top" className="back-img" src={p.image_url2} />
+                    <Card.Img variant="top" className=""/>
                     <Card.Body>
                       <Card.Title>{p.name}</Card.Title>
                       <Card.Text>

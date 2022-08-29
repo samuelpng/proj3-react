@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 
-
 //=== Contexts ===
 import ProductsContext from "../contexts/ProductsContext";
 
@@ -12,6 +11,7 @@ const BASE_URL = 'https://8000-samuelpng-proj3express-iwcbe9cedes.ws-us63.gitpod
 export default function ProductsProvider(props) {
 
     const [products, setProducts] = useState([]);
+    const [eachProduct, setEachProduct] = useState("")
 
 
     useEffect(() => {
@@ -36,6 +36,12 @@ export default function ProductsProvider(props) {
             })
             return response;
         },
+        // getProductById: async (productId) => {
+        //     let response = await axios.get(BASE_URL + `/products/${productId}`)
+        //     setEachProduct(response.data.product)
+        //     console.log(eachProduct)
+            
+        // },
         search: async (searchQuery)=>{
 
             // console.log(searchQuery)
