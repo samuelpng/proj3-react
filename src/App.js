@@ -17,26 +17,28 @@ import ProductsListing from './pages/ProductsListing';
 
 // === Providers ===
 import ProductsProvider from './providers/ProductsProvider';
+import CustomerProvider from './providers/CutomerProvider';
 
 function App() {
   return (
     <Fragment>
-
+      <CustomerProvider>
+        <ProductsProvider>
         <Router>
-
         <NavBar />
 
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/products" element={<ProductsProvider><ProductsListing /></ProductsProvider>} />
-            <Route path="/boots" element={<ProductsProvider><Products /></ProductsProvider>} />
-            <Route path="/products/:productId" element={<ProductsProvider><Variants /></ProductsProvider>} />
+            <Route path="/products" element={<ProductsListing />} />
+            <Route path="/boots" element={<Products />} />
+            <Route path="/products/:productId" element={<Variants />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/cart" element={<Cart />} />
           </Routes>
         </Router>
-
+        </ProductsProvider>
+        </CustomerProvider>
     </Fragment>
  
   );

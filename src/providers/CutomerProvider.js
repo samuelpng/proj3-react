@@ -9,7 +9,7 @@ import CustomerContext from '../contexts/CustomerContext';
 // const BASE_URL = 'https://kicks-city.herokuapp.com/api';
 const BASE_URL = 'https://8000-samuelpng-proj3express-iwcbe9cedes.ws-us63.gitpod.io/api'
 
-export default function ProductsProvider(props) {
+export default function CustomerProvider(props) {
     const [customer, setCustomer] = useState({});
     const [jwt, setJwt] = useState([]);
     const [cart, setCart] = useState({});
@@ -23,23 +23,26 @@ export default function ProductsProvider(props) {
         return JSON.parse(jsonPayload);
     }
 
-    const login = async (username, password) => {
+    const login = async (email, password) => {
         let response = await axios.post(BASE_URL + '/customers/login', {
-            username,
+            email,
             password
         })
         if (response.data.error) {
-            console.log('Username or password does not match')
+            console.log('Email or password does not match')
             setCustomer({})
             return false
         }
 
         //add to local storage? or session storage
-        localStorage.setItem('accessToken', loginResponse.data.accessToken)
-        localStorage.setItem('refreshToken', loginResponse.data.refreshToken)
+        localStorage.setItem('accessToken', response.data.accessToken)
+        localStorage.setItem('refreshToken', response.data.refreshToken)
 
-        console.log(response.data)
-        setJWT(response.data)
+        console.log('response =>',response.data)
+        setJwt(response.data)
+        let customerData = parseJWT(response.data.accessToken)
+        console.log('customerData =>', customerData)
+        localStorage.setItem('customer', customerData)
         return true
     }
 
@@ -48,12 +51,12 @@ export default function ProductsProvider(props) {
             let response = await axios.post(BASE_URL + '/customers/logout', {
                 refreshToken: jwt.refreshToken
             },
-            {
-                headers: {
-                    authorization: `${jwt.accessToken}`
-                    // authorization: `Bearer ${jwt.accessToken}`
-                }
-            })
+                {
+                    headers: {
+                        authorization: `${jwt.accessToken}`
+                        // authorization: `Bearer ${jwt.accessToken}`
+                    }
+                })
 
             if (response.data.message) {
                 setCustomer({});
@@ -72,24 +75,54 @@ export default function ProductsProvider(props) {
     }
 
     const context = {
-        registerCustomer: async (input) => {
-           let inputData = {}
-           let username = input.username;
-           let first_name = input.first_name;
-           let last_name = input.last_name;
-           let email = input.email;
-           let password = input.password;
-           let contact_number = input.contact_number
-           inputData = { username, first_name, last_name, email, password, contact_number }
+        register: async (data) => {
+            let formData = {}
+            let username = data.username;
+            let email = data.email;
+            let first_name = data.first_name;
+            let last_name = data.last_name;
+            let password = data.password;
+            let contact_number = data.contact_number
+            formData = { username, email, first_name, last_name, password, contact_number }
+            console.log(formData)
 
-           let response = await axios.post(BASE_URL + '/customers/register', formData)
-        }
+            let response = await axios.post(BASE_URL + '/customers/register', formData)
+
+            if (response.data.customer) {
+                return await login(email, password)
+            }
+            if (response.data.error) {
+                return false
+            }
+        },
+        login: async (email, password) => {
+            let response = await login(email, password)
+            return response
+        },
+        getLocalData: () => {
+            let localData = localStorage.getItem("accessToken")
+            console.log(sessionData)
+        },
+        logout: async () => {
+            await logout()
+        },
+        checkAuthenticated: () => {
+            if (jwt.accessToken) {
+                return true
+            } else {
+                return false
+            }
+        },
     }
 
+    return <CustomerContext.Provider value={context}>
+        {props.children}
+    </CustomerContext.Provider>
 
 
 
 
 
-    
+
+
 }

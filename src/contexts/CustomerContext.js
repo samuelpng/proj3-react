@@ -1,6 +1,6 @@
 import {createContext} from 'react';
 
-const CutomerContext = createContext({
+const CustomerContext = createContext({
 
 });
 

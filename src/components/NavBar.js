@@ -25,6 +25,8 @@ export default function NavBar() {
                             Separated link
                         </NavDropdown.Item>
                     </NavDropdown>
+                    <Nav.Link href="/login">Log In</Nav.Link>
+                    <Nav.Link href="/logout">Log Out</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
