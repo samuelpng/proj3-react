@@ -4,28 +4,37 @@ import { Carousel, Container, Badge, Button, Accordion, Placeholder, Card } from
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import '../App.css';
+import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Variants(props) {
     // const BASE_URL = 'https://kicks-city.herokuapp.com/api/products/'
-    const BASE_URL = 'https://8000-samuelpng-proj3express-iwcbe9cedes.ws-us63.gitpod.io/api/products/'
+    const BASE_URL = 'https://8000-samuelpng-proj3express-iwcbe9cedes.ws-us63.gitpod.io/api/'
 
 
     const { productId } = useParams();
-    const [variants, setVariants] = useState([]);
+    const [variants, setVariants] = useState("");
     const [product, setProduct] = useState("");
-    const [selectedVariant, setSelectedVariant] = useState([]);
+    const [selectedVariant, setSelectedVariant] = useState("");
+
+    const navigate = useNavigate()
 
     // const context = useContext(ProductsContext);
     // const product = context.getProductById(parseInt(productId))
     // console.log(product)
-    
+
 
     const getProductData = async (productId) => {
-        let response = await axios.get(BASE_URL + productId)
+        let response = await axios.get(BASE_URL + `products/${productId}`)
         const variants = response.data.variants
         const product = response.data.product
         setVariants(variants)
         setProduct(product)
+    }
+
+    const updateVariant = (e) => {
+        setSelectedVariant(e.target.value)
     }
 
     // const getProduct = async (productId) => {
@@ -43,7 +52,6 @@ export default function Variants(props) {
     // }, [])
 
     useEffect(() => {
-        console.log(productId)
         const fetchProductData = async () => {
             await getProductData(productId)
         }
@@ -54,12 +62,42 @@ export default function Variants(props) {
         // fetchVariants();
     }, [])
 
+    const addToCart = async () => {
+        // check if user is logged in
+        if (localStorage.getItem("accessToken")) {
+
+            const customerData = JSON.parse(localStorage.getItem("customer"))            
+            let customerId = customerData.id
+            let variantId = selectedVariant
+            console.log('variant id' , variantId)
+            console.log('customerId', customerId)
+
+            try {
+                console.log(BASE_URL + `cart/${variantId}/add`)
+                let response = await axios.post(BASE_URL + `cart/${variantId}/add`,
+                    {
+                        customer_id: customerId,
+                        variant_id: variantId
+                    },
+                    {
+                        headers: {
+                            authorization: `Bearer ${localStorage.getItem("accessToken")}`
+                        },
+                    })
+                toast.success('Successfully added to cart')
+                console.log(response)
+                return true
+            } catch (error) {
+                toast.error("Something went wrong")
+                return false
+            }
+        } else {
+            toast.error('You have to log in to add to cart')
+        }}
 
 
 
-   
-
-if (product) {
+    if (product) {
         return (
             <Fragment>
                 {/* <h1>{product.name}</h1> */}
@@ -106,17 +144,35 @@ if (product) {
                                             {/* <Badge bg="success" text="dark" className="p-3" style={{ cursor: "pointer", borderColor: "black", fontSize: "17px" }}>
                                          {v.size.size}
                                     </Badge> */}
-                                            <div className="sizeBox" style={{ cursor: "pointer" }}>
+                                            {/* <div className="sizeBox" style={{ cursor: "pointer" }}>
                                                 {v.size.size}
-                                            </div>
-
+                                            </div> */}
+                                            <span key={v.id}>
+                                                <input type="radio" name="sizeVariant" id={v.id} className="sizeRadio"
+                                                    value={v.id} onChange={updateVariant} checked={selectedVariant === `${v.id}`} />
+                                                {/* to add check and update function */}
+                                                {/* {selectedVariant = `${v.id}` ? 'sizeBox' : 'sizeBox uncheckSize'} */}
+                                                <label htmlFor={v.id} key={v.name} style={{ cursor: "pointer" }}>
+                                                    <span className={selectedVariant === `${v.id}` ? 'checkedSize' : 'sizeBox'}
+                                                    >{v.size.size}</span>
+                                                </label>
+                                            </span>
                                         </Fragment>
                                     )
                                 })}
                             </div>
-                            <Button variant="dark" className="mt-4 p-2">Add to Cart</Button>
+                            {variants.map(v => <div className="mt-2">{selectedVariant === `${v.id}` ? 
 
-                            {/* <Accordion className="mt-3">
+                            (parseInt(v.stock) > 5) ? <span key={v.id}>{v.stock} stocks available </span>  : <span key={v.id} style={{color:'red'}}> Only {v.stock} stocks left </span> 
+                            // <span>{v.stock} stocks available </span> 
+                            
+                            : null}</div>)}
+                            <div className="d-grid mt-4 me-2">
+                                <Button variant="dark" className="rounded-0 py-2" type="button" onClick={addToCart}>ADD TO CART</Button>
+                            </div>
+                        {/* <Button variant="dark" className="mt-4 p-2">ADD TO CART</Button> */}
+
+                        {/* <Accordion className="mt-3">
                                 <Accordion.Item>
                                     <Accordion.Header>Description</Accordion.Header>
                                     <Accordion.Body>
@@ -124,52 +180,53 @@ if (product) {
                                     </Accordion.Body>
                                 </Accordion.Item>
                             </Accordion> */}
-                            <div className="mt-4"> {product.description} </div>
+                        <div className="mt-4"> {product.description} </div>
 
-                            <Accordion className="mt-3">
-                                <Accordion.Item eventKey="0">
-                                    <Accordion.Header>Product Details</Accordion.Header>
-                                    <Accordion.Body>
-                                        <div className="details-container">
-                                            <div> Brand: {product.brand.brand_name} </div>
-                                            <div> Collection: {product.collection.collection} </div>
-                                            <div> Upper Material: {product.material.material} </div>
-                                            <div> Surface Type: {product.surface.surface} ({product.surface.surface_abbreviation}) </div>
-                                            <div> Closure: {product.closure.closure} </div>
-                                            <div> Cutting: {product.cutting.cutting} </div>
-                                        </div>
-                                    </Accordion.Body>
-                                </Accordion.Item>
-                            </Accordion>
+                        <Accordion className="mt-3">
+                            <Accordion.Item eventKey="0">
+                                <Accordion.Header>Product Details</Accordion.Header>
+                                <Accordion.Body>
+                                    <div className="details-container">
+                                        <div> Brand: {product.brand.brand_name} </div>
+                                        <div> Collection: {product.collection.collection} </div>
+                                        <div> Upper Material: {product.material.material} </div>
+                                        <div> Surface Type: {product.surface.surface} ({product.surface.surface_abbreviation}) </div>
+                                        <div> Closure: {product.closure.closure} </div>
+                                        <div> Cutting: {product.cutting.cutting} </div>
+                                    </div>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                        </Accordion>
 
-                        </div>
                     </div>
-                    <div style={{ height: "30px" }}></div>
-                </Container>
-            </Fragment>
+                </div>
+                <div style={{ height: "30px" }}></div>
+            </Container>
+            </Fragment >
         )
     } else {
-        return(
+        return (
             <Container>
-            <div className="row">
-                <div className="col-md-7 mt-5 imagePlaceholder"></div>
-                <div className="col-12 col-md-5 mt-5">     
-                            <Placeholder as={Card.Title} animation="glow">
-                                <Placeholder xs={6} />
-                            </Placeholder>
-                            <Placeholder as={Card.Text} animation="glow">
-                                <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}
-                                <Placeholder xs={6} className="mt-3" /> <Placeholder xs={8} />
-                                <Placeholder xs={6} className="mt-3"/> <Placeholder xs={8} />
-                                <Placeholder xs={6} className="mt-3"/> <Placeholder xs={8} />
-                                <Placeholder xs={6} className="mt-3"/> <Placeholder xs={8} />
-                                <Placeholder xs={6} className="mt-3"/> <Placeholder xs={8} />
-                                <Placeholder xs={6} className="mt-3"/> <Placeholder xs={8} />
-                                <Placeholder xs={9} className="mt-3"/> <Placeholder xs={3} />
-                            </Placeholder>
+                <div className="row">
+                    <div className="col-md-7 mt-5 imagePlaceholder"></div>
+                    <div className="col-12 col-md-5 mt-5">
+                        <Placeholder as={Card.Title} animation="glow">
+                            <Placeholder xs={6} />
+                        </Placeholder>
+                        <Placeholder as={Card.Text} animation="glow">
+                            <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}
+                            <Placeholder xs={6} className="mt-3" /> <Placeholder xs={8} />
+                            <Placeholder xs={6} className="mt-3" /> <Placeholder xs={8} />
+                            <Placeholder xs={6} className="mt-3" /> <Placeholder xs={8} />
+                            <Placeholder xs={6} className="mt-3" /> <Placeholder xs={8} />
+                            <Placeholder xs={6} className="mt-3" /> <Placeholder xs={8} />
+                            <Placeholder xs={6} className="mt-3" /> <Placeholder xs={8} />
+                            <Placeholder xs={9} className="mt-3" /> <Placeholder xs={3} />
+                        </Placeholder>
+                    </div>
                 </div>
-            </div>
-        </Container>
+                <ToastContainer />
+            </Container>
         )
     }
 

@@ -11,16 +11,15 @@ export default function CardPlaceholder() {
             <div className="row">
                 {myArray.map(m => {
                     return (
-                        <div className="col-12 col-md-6 col-lg-3 mb-5" key="1">
-                            <div class="cardLoad">
-                                <div class="card__image"></div>
-                                <div class="card__content">
+                        <div className="col-12 col-md-6 col-lg-3 mb-5" key={m}>
+                            <div className="cardLoad">
+                                <div className="card__image"></div>
+                                <div className="card__content">
                                     <h2 className=".loadTitle"></h2>
                                     <p className="loadText"></p>
                                 </div>
                             </div>
                         </div>
-
                     )
                 })}
             </div>

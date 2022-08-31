@@ -40,6 +40,10 @@ export default function ProductsListing(props) {
     useEffect(() => {
         search()
     }, [])
+    //reset search when state changes 
+    useEffect(() => {
+        search();
+    }, [brandSearch, collectionSearch, materialSearch, colourSearch, surfaceSearch, closureSearch, cuttingSearch, positionSearch])
 
     // offCanvasSearch
     const [show, setShow] = useState(false);
@@ -154,9 +158,7 @@ export default function ProductsListing(props) {
     }
 
 
-    useEffect(() => {
-        search();
-    }, [brandSearch, collectionSearch, materialSearch, colourSearch, surfaceSearch, closureSearch, cuttingSearch, positionSearch])
+   
 
 
     const search = async () => {
@@ -325,7 +327,7 @@ export default function ProductsListing(props) {
 
                                     {colours ?
                                         colours.map((c) => (
-                                            <span class="me-3" key={c[0]}>
+                                            <span className="me-3" key={c[0]}>
                                                 <input type="checkbox" key={c[1]} name="colourSearch" id={c[1]} className="colourCheckbox"
                                                     value={c[0]} checked={colourSearch.includes(c[0].toString())} onChange={updateColourSearch} />
                                                 <label htmlFor={c[1]} key={c[0]} >

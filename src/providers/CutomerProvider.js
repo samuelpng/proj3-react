@@ -1,6 +1,8 @@
 //=== Dependencies ===
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 
 //=== Contexts ===
@@ -10,8 +12,6 @@ import CustomerContext from '../contexts/CustomerContext';
 const BASE_URL = 'https://8000-samuelpng-proj3express-iwcbe9cedes.ws-us63.gitpod.io/api'
 
 export default function CustomerProvider(props) {
-    const [customer, setCustomer] = useState({});
-    const [jwt, setJwt] = useState([]);
     const [cart, setCart] = useState({});
 
     const parseJWT = (token) => {
@@ -30,7 +30,8 @@ export default function CustomerProvider(props) {
         })
         if (response.data.error) {
             console.log('Email or password does not match')
-            setCustomer({})
+            toast.error("Account does not exist or password does not match")
+            localStorage.clear()
             return false
         }
 
@@ -38,41 +39,54 @@ export default function CustomerProvider(props) {
         localStorage.setItem('accessToken', response.data.accessToken)
         localStorage.setItem('refreshToken', response.data.refreshToken)
 
-        console.log('response =>',response.data)
-        setJwt(response.data)
         let customerData = parseJWT(response.data.accessToken)
         console.log('customerData =>', customerData)
-        localStorage.setItem('customer', customerData)
+        localStorage.setItem('customer', JSON.stringify(customerData))
+        toast.success("Login Success")
         return true
     }
 
     const logout = async () => {
-        if (jwt.accessToken) {
-            let response = await axios.post(BASE_URL + '/customers/logout', {
-                refreshToken: jwt.refreshToken
-            },
+        if (localStorage.accessToken) {
+            let response = await axios.post(BASE_URL + '/customers/logout',
+                {
+                    refreshToken: localStorage.getItem('refreshToken')
+                },
                 {
                     headers: {
-                        authorization: `${jwt.accessToken}`
-                        // authorization: `Bearer ${jwt.accessToken}`
+                        authorization: `Bearer ${localStorage.getItem('accessToken')}`
                     }
                 })
 
             if (response.data.message) {
-                setCustomer({});
                 console.log(response.data.message)
                 //todo: clear sessions or local storage
                 localStorage.clear()
-                setJwt([]);
+                toast.success('Log out Successful')
             }
 
             if (response.data.error) {
-                setCustomer({});
-                setJwt([]);
                 console.log('error, token not found')
             }
         }
     }
+
+    const getCartItems = async (customerId) => {
+        console.log(BASE_URL + `/cart/${customerId}`)
+        try {
+            const response = await axios.get(BASE_URL + `/cart/${customerId}`, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("accessToken")}`
+                }
+            })
+            let cartItems = response.data
+            console.log(cartItems)
+            return cartItems
+        } catch (error) {
+            return false
+        }
+    }
+    
 
     const context = {
         register: async (data) => {
@@ -101,22 +115,27 @@ export default function CustomerProvider(props) {
         },
         getLocalData: () => {
             let localData = localStorage.getItem("accessToken")
-            console.log(sessionData)
+            console.log(localData)
         },
         logout: async () => {
             await logout()
         },
-        checkAuthenticated: () => {
-            if (jwt.accessToken) {
+        checkIfAuth: () => {
+            if (localStorage.accessToken) {
                 return true
             } else {
                 return false
             }
         },
+        getCartItems: async (customerId) => {
+            let response = await getCartItems(customerId)
+            return response
+        }
     }
 
     return <CustomerContext.Provider value={context}>
         {props.children}
+        <ToastContainer />
     </CustomerContext.Provider>
 
 

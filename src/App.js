@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import './App.css'; 
+import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import "bootstrap/dist/css/bootstrap.min.css"
 
@@ -14,6 +14,7 @@ import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ProductsListing from './pages/ProductsListing';
+import Profile from './pages/Profile';
 
 // === Providers ===
 import ProductsProvider from './providers/ProductsProvider';
@@ -24,23 +25,24 @@ function App() {
     <Fragment>
       <CustomerProvider>
         <ProductsProvider>
-        <Router>
-        <NavBar />
+          <Router>
+            <NavBar />
 
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/products" element={<ProductsListing />} />
-            <Route path="/boots" element={<Products />} />
-            <Route path="/products/:productId" element={<Variants />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/cart" element={<Cart />} />
-          </Routes>
-        </Router>
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/products" element={<ProductsListing />} />
+              <Route path="/boots" element={<Products />} />
+              <Route path="/products/:productId" element={<Variants />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/profile" element={<Profile />} />
+            </Routes>
+          </Router>
         </ProductsProvider>
-        </CustomerProvider>
+      </CustomerProvider>
     </Fragment>
- 
+
   );
 }
 

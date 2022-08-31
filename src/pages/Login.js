@@ -27,7 +27,6 @@ export default function Login() {
     console.log("login =>", response)
 
     if (response) {
-      alert('logged in')
       navigate('/')
     }
   }
