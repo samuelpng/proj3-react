@@ -71,10 +71,9 @@ export default function CustomerProvider(props) {
         }
     }
 
-    const getCartItems = async (customerId) => {
-        console.log(BASE_URL + `/cart/${customerId}`)
+    const getCartItems = async () => {
         try {
-            const response = await axios.get(BASE_URL + `/cart/${customerId}`, {
+            const response = await axios.get(BASE_URL + `/cart`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem("accessToken")}`
                 }
@@ -86,7 +85,28 @@ export default function CustomerProvider(props) {
             return false
         }
     }
-    
+
+    const updateCartItem = async (customerId, variantId, quantity) => {
+        if (localStorage.getItem("accessToken")) {
+            try {
+                await axios.post(BASE_URL + `/cart/${variantId}/update`, {
+                    customer_id: customerId,
+                    quantity: quantity
+                },
+                    {
+                        headers: {
+                            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                        },
+                    })
+                    return true
+            } catch(error) {
+                return false
+            }
+        }else {
+            return false
+        }
+    }
+
 
     const context = {
         register: async (data) => {
@@ -127,8 +147,12 @@ export default function CustomerProvider(props) {
                 return false
             }
         },
-        getCartItems: async (customerId) => {
-            let response = await getCartItems(customerId)
+        getCartItems: async () => {
+            let response = await getCartItems()
+            return response
+        },
+        updateCartItem: async (customerId, variantId, quantity) => {
+            let response = await updateCartItem(customerId, variantId, quantity)
             return response
         }
     }
