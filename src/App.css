@@ -56,7 +56,6 @@
   border: 2px solid black;
   background-color: black;
   color: white;
-  padding: 10px;
 }
 
 .checkedSize {
@@ -71,6 +70,26 @@
   width: 80px;
   background-color: black;
   color: white;
+  padding: 10px;
+}
+
+.size-soldOut {
+  width: 80px;
+  border: 2px solid gray;
+  color: gray;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 17px;
+  box-sizing: border-box;
+  text-decoration: line-through;
+  cursor: pointer
+}
+
+.size-soldOut:hover {
+  width: 80px;
+  color: darkgray;
   padding: 10px;
 }
 
@@ -196,19 +215,18 @@
   font-size: 20px;
   border: 2px solid black; 
   position: relative;
-  width: 90%
 }
-
+/* 
 .cartItemName {
   font-size: 25px;
   font-weight: 600;
-}
+} */
 
 .cart-select{
   width: 30% !important;
   height: 20% !important;
   margin-top:15px !important;
-  font-size: 30px !important;
+  /* font-size: 30px !important; */
 }
 
 .qty-box{
@@ -220,7 +238,7 @@
 }
 
 .cart-stock {
-  font-size: 18px;
+  font-size: 15px;
   color: red
 }
 
@@ -228,7 +246,6 @@
 @media screen and (max-width: 768px) {
   .cartItem-container {
     font-size: 10px;
-    width: 100%
   }
   
   .cartItemName {

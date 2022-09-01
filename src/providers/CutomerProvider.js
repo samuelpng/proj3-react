@@ -107,6 +107,24 @@ export default function CustomerProvider(props) {
         }
     }
 
+    const deleteCartItem = async (customerId, variantId) => {
+        if (localStorage.getItem("accessToken")) {
+            try {
+                await axios.delete(BASE_URL + `/cart/${variantId}/delete`, {
+                        headers: {
+                            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                        }
+                    })
+                    return true
+            } catch(error) {
+                return false
+            }
+        }else {
+            return false
+        }
+    
+    }
+
 
     const context = {
         register: async (data) => {
@@ -153,6 +171,11 @@ export default function CustomerProvider(props) {
         },
         updateCartItem: async (customerId, variantId, quantity) => {
             let response = await updateCartItem(customerId, variantId, quantity)
+            return response
+        },
+        deleteCartItem: async (customerId, variantId) => {
+            let response = await deleteCartItem(customerId, variantId)
+            console.log('blablbla')
             return response
         }
     }

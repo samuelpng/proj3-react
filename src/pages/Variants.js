@@ -69,8 +69,6 @@ export default function Variants(props) {
             const customerData = JSON.parse(localStorage.getItem("customer"))            
             let customerId = customerData.id
             let variantId = selectedVariant
-            console.log('variant id' , variantId)
-            console.log('customerId', customerId)
 
             try {
                 console.log(BASE_URL + `cart/${variantId}/add`)
@@ -88,7 +86,7 @@ export default function Variants(props) {
                 console.log(response)
                 return true
             } catch (error) {
-                toast.error("Something went wrong")
+                toast.error("Maximum items in cart exceeded")
                 return false
             }
         } else {
@@ -140,46 +138,34 @@ export default function Variants(props) {
                             <div className="sizeBox-container mt-1">
                                 {variants.map(v => {
                                     return (
+                                        parseInt(v.stock) > 0 ?
                                         <Fragment>
-                                            {/* <Badge bg="success" text="dark" className="p-3" style={{ cursor: "pointer", borderColor: "black", fontSize: "17px" }}>
-                                         {v.size.size}
-                                    </Badge> */}
-                                            {/* <div className="sizeBox" style={{ cursor: "pointer" }}>
-                                                {v.size.size}
-                                            </div> */}
                                             <span key={v.id}>
                                                 <input type="radio" name="sizeVariant" id={v.id} className="sizeRadio"
                                                     value={v.id} onChange={updateVariant} checked={selectedVariant === `${v.id}`} />
-                                                {/* to add check and update function */}
-                                                {/* {selectedVariant = `${v.id}` ? 'sizeBox' : 'sizeBox uncheckSize'} */}
                                                 <label htmlFor={v.id} key={v.name} style={{ cursor: "pointer" }}>
                                                     <span className={selectedVariant === `${v.id}` ? 'checkedSize' : 'sizeBox'}
                                                     >{v.size.size}</span>
                                                 </label>
                                             </span>
                                         </Fragment>
+                                        : 
+                                        <Fragment>
+                                            <span className="size-soldOut">{v.size.size}</span>
+                                        </Fragment>
                                     )
                                 })}
                             </div>
                             {variants.map(v => <div className="mt-2">{selectedVariant === `${v.id}` ? 
 
-                            (parseInt(v.stock) > 5) ? <span key={v.id}>{v.stock} stocks available </span>  : <span key={v.id} style={{color:'red'}}> Only {v.stock} stocks left </span> 
-                            // <span>{v.stock} stocks available </span> 
+                            (parseInt(v.stock) > 5) ? 
+                            <span key={v.id}>{v.stock} stocks available </span>  : 
+                            <span key={v.id} style={{color:'red'}}> Only {v.stock} stocks left </span> 
                             
                             : null}</div>)}
                             <div className="d-grid mt-4 me-2">
                                 <Button variant="dark" className="rounded-0 py-2" type="button" onClick={addToCart}>ADD TO CART</Button>
                             </div>
-                        {/* <Button variant="dark" className="mt-4 p-2">ADD TO CART</Button> */}
-
-                        {/* <Accordion className="mt-3">
-                                <Accordion.Item>
-                                    <Accordion.Header>Description</Accordion.Header>
-                                    <Accordion.Body>
-                                        {product.description}
-                                    </Accordion.Body>
-                                </Accordion.Item>
-                            </Accordion> */}
                         <div className="mt-4"> {product.description} </div>
 
                         <Accordion className="mt-3">
