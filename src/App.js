@@ -15,7 +15,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import ProductsListing from './pages/ProductsListing';
 import Profile from './pages/Profile';
-
+import Stripe from './components/Stripe'
 // === Providers ===
 import ProductsProvider from './providers/ProductsProvider';
 import CustomerProvider from './providers/CutomerProvider';
@@ -23,9 +23,10 @@ import CustomerProvider from './providers/CutomerProvider';
 function App() {
   return (
     <Fragment>
-      <CustomerProvider>
-        <ProductsProvider>
-          <Router>
+
+      <Router>
+        <CustomerProvider>
+          <ProductsProvider>
             <NavBar />
 
             <Routes>
@@ -37,10 +38,12 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/stripe" element={<Stripe />} />
             </Routes>
-          </Router>
-        </ProductsProvider>
-      </CustomerProvider>
+          </ProductsProvider>
+        </CustomerProvider>
+      </Router>
+
     </Fragment>
 
   );

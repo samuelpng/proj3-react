@@ -1,6 +1,7 @@
 //=== Dependencies ===
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -12,7 +13,9 @@ import CustomerContext from '../contexts/CustomerContext';
 const BASE_URL = 'https://8000-samuelpng-proj3express-iwcbe9cedes.ws-us63.gitpod.io/api'
 
 export default function CustomerProvider(props) {
-    const [cart, setCart] = useState({});
+    const [stripeSessionData, setStripeSessionData] = useState('');
+    const navigate = useNavigate()
+
 
     const parseJWT = (token) => {
         var base64Url = token.split('.')[1];
@@ -29,8 +32,7 @@ export default function CustomerProvider(props) {
             password
         })
         if (response.data.error) {
-            console.log('Email or password does not match')
-            toast.error("Account does not exist or password does not match")
+            toast.error("Invalid email or password")
             localStorage.clear()
             return false
         }
@@ -79,7 +81,6 @@ export default function CustomerProvider(props) {
                 }
             })
             let cartItems = response.data
-            console.log(cartItems)
             return cartItems
         } catch (error) {
             return false
@@ -123,6 +124,30 @@ export default function CustomerProvider(props) {
             return false
         }
     
+    }
+
+    const getStripeData = async () => {
+        if (localStorage.getItem('accessToken')) {
+            try {
+                let response = await axios.get(BASE_URL + '/checkout', {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                    }
+                })
+                console.log('stripesession data', response.data)
+                setStripeSessionData(response.data)
+                navigate('/stripe')
+
+            } catch (error) {
+                return false
+            }
+        } else {
+            return false
+        }
+    }
+
+    const getStripe = () => {
+        return stripeSessionData
     }
 
 
@@ -176,6 +201,15 @@ export default function CustomerProvider(props) {
         deleteCartItem: async (customerId, variantId) => {
             let response = await deleteCartItem(customerId, variantId)
             console.log('blablbla')
+            return response
+        },
+        checkout: async () => {
+            let response = await getStripeData()
+            // console.log('checkout', response)
+            return response
+        },
+        getStripe: () => {
+            let response = getStripe()
             return response
         }
     }

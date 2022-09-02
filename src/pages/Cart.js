@@ -31,16 +31,12 @@ export default function Cart() {
 
   const getCartItems = async () => {
     const customerId = customerData.id
-    console.log(customerData)
-    console.log('customer id', customerId)
     const response = await context.getCartItems()
-    console.log('hi', response)
     setCartItems(response)
     const qty = {}
     for (let r of response) {
       qty[r.variant.id] = r.quantity
     }
-    console.log('qty', qty)
     setQuantity(qty)
 
     const subtotal = []
@@ -50,7 +46,6 @@ export default function Cart() {
     const total = subtotal.reduce((partialSum, a) => partialSum + a, 0)
     setTotal(total)
 
-    console.log('hihi', quantity)
   }
 
 
@@ -63,8 +58,6 @@ export default function Cart() {
     const customerId = customerData.id
     // const qty = quantity[variantId]
     const qty = e.target.value
-
-    console.log(customerId, variantId, qty)
 
     let response = await context.updateCartItem(customerId, variantId, qty)
     if (response) {
@@ -79,7 +72,6 @@ export default function Cart() {
 
   const deleteCartItem = async (variantId) => {
     const customerId = customerData.id
-    console.log('delete', variantId)
     let response = await context.deleteCartItem(customerId, variantId)
     if (response) {
       toast.success('Product removed from cart')
@@ -91,8 +83,9 @@ export default function Cart() {
     }
   }
 
-  const addTest = async () => {
-    return 5
+  const checkout = async () => {
+    let response = await context.checkout()
+    console.log("cart checkout", response)
   }
 
   return (
@@ -162,7 +155,7 @@ export default function Cart() {
                     </div>
                     </div>
                     <div className="d-grid my-4 mx-2">
-                      <Button variant="dark" className="rounded-0 py-2" type="button" >CHECKOUT</Button>
+                      <Button variant="dark" className="rounded-0 py-2" type="button" onClick={checkout} >CHECKOUT</Button>
                     </div>
 
 
