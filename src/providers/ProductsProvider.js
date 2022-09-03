@@ -24,7 +24,6 @@ export default function ProductsProvider(props) {
 
     const context = {
         getProducts: () => {
-            // console.log(products)
             return products.products
         },
         getProductById: (productId) => {
@@ -36,15 +35,7 @@ export default function ProductsProvider(props) {
             })
             return response;
         },
-        // getProductById: async (productId) => {
-        //     let response = await axios.get(BASE_URL + `/products/${productId}`)
-        //     setEachProduct(response.data.product)
-        //     console.log(eachProduct)
-            
-        // },
         search: async (searchQuery)=>{
-
-            // console.log(searchQuery)
             let response = await axios.post(BASE_URL + '/products/search', searchQuery)
             return response.data
         },
@@ -71,8 +62,11 @@ export default function ProductsProvider(props) {
         },
         getPositions: () => {
             return products.positions
+        },
+        getNewProducts: async () => {
+            let response = await axios.get(BASE_URL + '/products/new')
+            return response.data
         }
-
     }
 
 
