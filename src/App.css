@@ -9,6 +9,12 @@
   text-align: center;
 } */
 
+#landing-img {
+  background-image: url("https://i.imgur.com/hXVzEWD.png");
+  height: 80vh;
+  background-size: cover;
+}
+
 .card {
   border: 0px !important
 }
@@ -267,6 +273,12 @@
   .cart-stock {
     font-size: 9px;
     color: red
+  }
+
+  #landing-img {
+    background-image: url("https://i.imgur.com/hXVzEWD.png");
+    height: 20vh;
+    background-size: cover;
   }
   
   

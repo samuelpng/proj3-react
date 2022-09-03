@@ -169,7 +169,6 @@ export default function CustomerProvider(props) {
     }
 
     const refreshToken = async () => {
-        console.log('refresh attempted')
         try {
             const response = await axios.post(BASE_URL + '/customers/refresh', {
                 refreshToken: localStorage.getItem('refreshToken')
@@ -180,7 +179,6 @@ export default function CustomerProvider(props) {
             })
 
             const accessToken = response.data.accessToken
-            console.log(accessToken)
             localStorage.setItem('accessToken', accessToken);
             return true
 
@@ -255,7 +253,6 @@ export default function CustomerProvider(props) {
         },
         checkout: async () => {
             let response = await getStripeData()
-            // console.log('checkout', response)
             return response
         },
         getStripe: () => {

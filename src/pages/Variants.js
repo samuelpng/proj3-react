@@ -83,7 +83,6 @@ export default function Variants(props) {
                         },
                     })
                 toast.success('Successfully added to cart')
-                console.log(response)
                 return true
             } catch (error) {
                 toast.error("Maximum items in cart exceeded")
