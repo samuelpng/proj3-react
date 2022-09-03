@@ -1,7 +1,7 @@
 //=== Dependencies ===
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useInRouterContext, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -62,7 +62,6 @@ export default function CustomerProvider(props) {
 
             if (response.data.message) {
                 console.log(response.data.message)
-                //todo: clear sessions or local storage
                 localStorage.clear()
                 toast.success('Log out Successful')
             }
@@ -150,6 +149,51 @@ export default function CustomerProvider(props) {
         return stripeSessionData
     }
 
+    const getOrders = async () => {
+        if (localStorage.getItem('accessToken')) {
+            try {
+                let response = await axios.get(BASE_URL + '/orders', {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                    }
+                })
+                console.log(response.data, "i am order")
+                let orders = response.data
+                return orders
+            } catch (error) {
+                return false
+            }
+        } else {
+            return false
+        }
+    }
+
+    const refreshToken = async () => {
+        console.log('refresh attempted')
+        try {
+            const response = await axios.post(BASE_URL + '/customers/refresh', {
+                refreshToken: localStorage.getItem('refreshToken')
+            }, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
+
+            const accessToken = response.data.accessToken
+            console.log(accessToken)
+            localStorage.setItem('accessToken', accessToken);
+            return true
+
+        } catch (error) {
+            if (localStorage.getItem('accessToken')){ 
+                await logout()
+            }
+            navigate('/login');
+            toast.error('Session has expired. Please login to continue');
+            return false
+        }
+    }
+
 
     const context = {
         register: async (data) => {
@@ -183,9 +227,15 @@ export default function CustomerProvider(props) {
         logout: async () => {
             await logout()
         },
-        checkIfAuth: () => {
+        checkIfAuth: async () => {
             if (localStorage.accessToken) {
-                return true
+                let response = await refreshToken()
+                if (response) {
+                    return true
+                } else {
+                    return false
+                }
+                // return true
             } else {
                 return false
             }
@@ -210,6 +260,10 @@ export default function CustomerProvider(props) {
         },
         getStripe: () => {
             let response = getStripe()
+            return response
+        },
+        getOrders: async () => {
+            let response = await getOrders()
             return response
         }
     }

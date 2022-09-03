@@ -8,7 +8,6 @@ export default function NavBar() {
 
     const context = useContext(CustomerContext)
     const logout = async () => {
-        console.log('howdy')
         await context.logout()
     }
 
@@ -37,6 +36,7 @@ export default function NavBar() {
                     <Nav.Link href="/login">Log In</Nav.Link>
                     }
                     <Nav.Link href="/cart">Cart</Nav.Link>
+                    <Nav.Link href="/orders">Orders</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
