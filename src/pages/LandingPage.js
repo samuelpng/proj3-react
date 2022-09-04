@@ -5,7 +5,7 @@ import ProductsContext from "../contexts/ProductsContext";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { createSearchParams, useNaigate, Link } from "react-router-dom";
 
 
 export default function LandingPage() {
@@ -32,7 +32,7 @@ export default function LandingPage() {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
       items: 4,
-      slidesToSlide: 3 // optional, default to 1.
+      slidesToSlide: 2 // optional, default to 1.
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
@@ -45,6 +45,7 @@ export default function LandingPage() {
       slidesToSlide: 1 // optional, default to 1.
     }
   };
+
 
 
 
@@ -62,8 +63,7 @@ export default function LandingPage() {
               newProducts.map(p => {
                 return (
                   <Card style={{ cursor: "pointer", textDecoration: 'none', color: 'black' }} as={Link} to={`/products/${p.id}`} className="p-3">
-                  <Card.Img variant="top" src={p.image_url} />
-                  <Card.Img variant="top" className="back-img" src={p.image_url2} />
+                  <Card.Img variant="top" src={p.image_url} className="landing-card-img" />
                   <Card.Body>
                     <Card.Title>{p.name}</Card.Title>
                     <Card.Text>
@@ -82,15 +82,15 @@ export default function LandingPage() {
       <div>
         <h1 className="text-center">SHOP BRANDS</h1>
         <div className="row ">
-          <div className="col-md-4 p-3">
+          <a className="col-md-4 p-3" href="/boots/3">
             <img src="/images/puma.png" style={{ width: "100%" }}></img>
-          </div>
-          <div className="col-md-4 p-3">
+          </a>
+          <a className="col-md-4 p-3" href="/boots/2">
             <img src="/images/adidas.png" style={{ width: "100%" }}></img>
-          </div>
-          <div className="col-md-4 p-3">
+          </a>
+          <a className="col-md-4 p-3" href="/boots/1">
             <img src="/images/nike.png" style={{ width: "100%" }}></img>
-          </div>
+          </a>
         </div>
       </div>
 

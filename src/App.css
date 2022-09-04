@@ -34,6 +34,11 @@ body {
   display: none
 }
 
+/* No change on hover for card in landing page */
+.landing-card-img:hover {
+  display: inline
+}
+
 .card .back-img {
   display: none;
   position: absolute;
@@ -295,6 +300,7 @@ body {
 
 .button-dark:hover {
   text-decoration: none;
+  color: beige
 }
 
 .button-dark:active {

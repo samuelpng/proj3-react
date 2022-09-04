@@ -14,6 +14,7 @@ export default function ProductsProvider(props) {
     const [eachProduct, setEachProduct] = useState("")
 
 
+
     useEffect(() => {
         const fetchProducts = async () => {
             let response = await axios.get(BASE_URL + '/products')
@@ -34,6 +35,10 @@ export default function ProductsProvider(props) {
                 }
             })
             return response;
+        },
+        getProductsByBrandId: (brandId) => {
+           let response = axios.get(BASE_URL + '/products/brand_id', brandId)
+           return response.data
         },
         search: async (searchQuery)=>{
             let response = await axios.post(BASE_URL + '/products/search', searchQuery)

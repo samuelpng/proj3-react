@@ -2,8 +2,9 @@ import { Fragment, useContext, useState, useEffect } from "react";
 import '../App.css';
 import ProductsContext from '../contexts/ProductsContext';
 import { Container, Card, Button, Placeholder, Offcanvas, Form, Accordion } from "react-bootstrap";
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-router-dom'
 import CardPlaceholder from "../components/CardPlaceholer";
+import ProductCard from "../components/ProductCard";
 
 
 const options = [
@@ -36,9 +37,13 @@ export default function ProductsListing(props) {
     const [positionSearch, setPositionSearch] = useState([])
     const [searchResults, setSearchResults] = useState([])
 
+    // const params = useParams()
+    const { brand_id } = useParams()
+
     //show products when page loaded
     useEffect(() => {
-        search()
+        initialBrandSearch(brand_id)
+        // search()
     }, [])
     //reset search when state changes 
     useEffect(() => {
@@ -58,6 +63,14 @@ export default function ProductsListing(props) {
 
     const updateGlobalSearch = (q) => {
         setGlobalSearch(q)
+    }
+
+    const initialBrandSearch = (brand_id) => {
+        let brand = brandSearch.slice()
+            brand.push(brand_id)
+            setBrandSearch(brand)
+
+            // search()
     }
 
     const updateBrandSearch = (e) => {
@@ -227,25 +240,8 @@ export default function ProductsListing(props) {
                         </div>
                     </div>
                     {brands ?
-                        <div className='row'>
-                            {searchResults.map(p => {
-                                return (
-                                    <div className="col-12 col-md-6 col-lg-3 mb-2" key={p.id}>
-                                        <Card style={{ cursor: "pointer", textDecoration: 'none', color: 'black' }} as={Link} to={`/products/${p.id}`}>
-                                            <Card.Img variant="top" src={p.image_url} />
-                                            <Card.Img variant="top" className="back-img" src={p.image_url2} />
-                                            <Card.Body>
-                                                <Card.Title>{p.name}</Card.Title>
-                                                <Card.Text>
-                                                    {p.surface.surface} Boots <br />
-                                                    S$ {(p.cost / 100).toFixed(2)}
-                                                </Card.Text>
-                                            </Card.Body>
-                                        </Card>
-                                    </div>
-                                );
-                            })}
-                        </div>
+
+                        <ProductCard products={searchResults} />
                         : 
                         
                         <CardPlaceholder />
@@ -338,19 +334,6 @@ export default function ProductsListing(props) {
                                         ))
                                         : ""}
 
-
-
-                                    {/* {colours ?
-                                        colours.map((c) => {
-                                            <div>
-                                                <input type="checkbox" id="colourCheckbox" key={c[0]} name="colourSearch" 
-                                                value={c[0]} checked={colourSearch.includes(c[0].toString())} />
-                                                <label for="colourSearch" ><span className="colourCircle" style={{backgroundColor: c[1] }}></span></label>
-                                            </div>
-                                        }) : ""
-                                    } */}
-
-
                                 </Accordion.Body>
                             </Accordion.Item>
                             <Accordion.Item eventKey="4">
@@ -420,34 +403,9 @@ export default function ProductsListing(props) {
 
                         </Accordion>
 
-                        {/* <button className="btn btn-dark rounded-0 p-2 mt-3" onClick={search}>Search</button> */}
-
                     </Offcanvas.Body>
                 </Offcanvas>
             </Fragment>
-        )
-    } else {
-        return (
-            <Container>
-                <h1>Football Boots</h1>
-                <div className="row">
-                    <div className="col-12 col-md-6 col-lg-3 mb-2">
-                        <Card style={{ width: '18rem' }}>
-                            <Card.Img variant="top" src="holder.js/100px180" />
-                            <Card.Body>
-                                <Placeholder as={Card.Title} animation="glow">
-                                    <Placeholder xs={6} />
-                                </Placeholder>
-                                <Placeholder as={Card.Text} animation="glow">
-                                    <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}
-                                    <Placeholder xs={6} /> <Placeholder xs={8} />
-                                </Placeholder>
-                                <Placeholder.Button variant="primary" xs={6} />
-                            </Card.Body>
-                        </Card>
-                    </div>
-                </div>
-            </Container>
         )
     }
 }

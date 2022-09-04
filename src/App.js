@@ -8,7 +8,6 @@ import NavBar from "./components/NavBar"
 
 //=== Pages ===
 import LandingPage from './pages/LandingPage'
-import Products from './pages/Products';
 import Variants from './pages/Variants';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
@@ -32,8 +31,7 @@ function App() {
 
             <Routes>
               <Route path="/" element={<LandingPage />} />
-              <Route path="/products" element={<ProductsListing />} />
-              <Route path="/boots" element={<Products />} />
+              <Route path="/boots/:brand_id" element={<ProductsListing />} />
               <Route path="/products/:productId" element={<Variants />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
