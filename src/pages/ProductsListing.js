@@ -1,4 +1,4 @@
-import { Fragment, useContext, useState, useEffect } from "react";
+import { Fragment, useContext, useState, useEffect, useLayoutEffect } from "react";
 import '../App.css';
 import ProductsContext from '../contexts/ProductsContext';
 import { Container, Card, Button, Placeholder, Offcanvas, Form, Accordion } from "react-bootstrap";
@@ -24,7 +24,6 @@ export default function ProductsListing(props) {
     const surfaces = context.getSurfaces()
     const closures = context.getClosures()
     const cuttings = context.getCuttings()
-    const positions = context.getPositions()
 
     const [globalSearch, setGlobalSearch] = useState('')
     const [brandSearch, setBrandSearch] = useState([])
@@ -34,20 +33,11 @@ export default function ProductsListing(props) {
     const [surfaceSearch, setSurfaceSearch] = useState([])
     const [closureSearch, setClosureSearch] = useState([])
     const [cuttingSearch, setCuttingSearch] = useState([])
-    const [positionSearch, setPositionSearch] = useState([])
     const [searchResults, setSearchResults] = useState([])
+    const [isFetched, setisFetched] = useState(false)
 
     // const params = useParams()
     const { brand_id } = useParams()
-
-    const initialBrandSearch = (brand_id) => {
-        if(brand_id === "1" || brand_id === "2" || brand_id === "3" ) {
-            let brand = brandSearch.slice()
-            brand.push(brand_id)
-            setBrandSearch(brand)
-        }
-            search()
-    }
 
     //show products when page loaded
     useEffect(() => {
@@ -55,8 +45,10 @@ export default function ProductsListing(props) {
     }, [])
     //reset search when state changes 
     useEffect(() => {
-        search();
-    }, [brandSearch, collectionSearch, materialSearch, colourSearch, surfaceSearch, closureSearch, cuttingSearch, positionSearch])
+        if( isFetched ){
+           search();
+        }
+    }, [brandSearch, collectionSearch, materialSearch, colourSearch, surfaceSearch, closureSearch, cuttingSearch])
 
     // offCanvasSearch
     const [show, setShow] = useState(false);
@@ -71,6 +63,18 @@ export default function ProductsListing(props) {
 
     const updateGlobalSearch = (q) => {
         setGlobalSearch(q)
+    }
+
+    const initialBrandSearch = (brand_id) => {
+        if(brand_id === "1" || brand_id === "2" || brand_id === "3" ) {
+            let brand = brandSearch.slice()
+            brand.push(brand_id)
+            setBrandSearch(brand)
+            setisFetched(true)
+        } else {
+            search()
+        }
+            
     }
 
     const updateBrandSearch = (e) => {
@@ -157,20 +161,6 @@ export default function ProductsListing(props) {
             setCuttingSearch(clone)
         }
     }
-    const updatePositionSearch = (e) => {
-        if (positionSearch.includes(e.target.value)) {
-            let clone = positionSearch.slice();
-            let indexToRemove = positionSearch.findIndex(i => i === e.target.value);
-            clone.splice(indexToRemove, 1);
-            setPositionSearch(clone)
-        } else {
-            let clone = positionSearch.slice()
-            clone.push(e.target.value)
-            setPositionSearch(clone)
-        }
-    }
-
-
    
 
 
@@ -200,14 +190,12 @@ export default function ProductsListing(props) {
         if (cuttingSearch && cuttingSearch.length !== 0) {
             searchQuery.cutting_id = cuttingSearch
         }
-        if (positionSearch && positionSearch.length !== 0) {
-            searchQuery.postion_id = positionSearch
-        }
 
 
         // console.log(searchQuery)
 
         const results = await context.search(searchQuery)
+        console.log(results)
 
         setSearchResults(results)
     }
@@ -314,16 +302,6 @@ export default function ProductsListing(props) {
                                 <Accordion.Header>Colours {colourSearch.length !== 0 ? <span className="ms-1">({colourSearch.length})</span> : ""}</Accordion.Header>
                                 <Accordion.Body>
 
-                                    {/* {colours ?
-                                        colours.map((b) => (
-                                         
-                                            <Form.Check type="checkbox" id="colourCheckbox" inline key={b[0]} label={b[1]} name="colourSearch"
-                                            value={b[0]} checked={colourSearch.includes(b[0].toString())}
-                                            onChange={updateColourSearch}><span className="colourCircle" style={{backgroundColor: b[1] }}></span></Form.Check>
-               
-                                        ))
-                                        : ""} */}
-
                                     {colours ?
                                         colours.map((c) => (
                                             <span className="me-3" key={c[0]}>
@@ -381,22 +359,6 @@ export default function ProductsListing(props) {
                                                 <Form.Check type="checkbox" inline key={c[0]} label={c[1]} name="cuttingSearch"
                                                     value={c[0]} checked={cuttingSearch.includes(c[0].toString())}
                                                     onChange={updateCuttingSearch} />
-                                            </Form.Group>
-                                        ))
-                                        : ""}
-
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="7">
-                                <Accordion.Header>Recommended Positions {positionSearch.length !== 0 ? <span className="ms-1">({positionSearch.length})</span> : ""}</Accordion.Header>
-                                <Accordion.Body>
-
-                                    {positions ?
-                                        positions.map((b) => (
-                                            <Form.Group className="mb-1" controlId={b[1]} key={b[0]}>
-                                                <Form.Check type="checkbox" inline key={b[0]} label={b[1]} name="positionSearch"
-                                                    value={b[0]} checked={positionSearch.includes(b[0].toString())}
-                                                    onChange={updatePositionSearch} />
                                             </Form.Group>
                                         ))
                                         : ""}

@@ -1,6 +1,6 @@
-import { Fragment, useContext, useState, useEffect } from 'react';
-import ProductsContext from '../contexts/ProductsContext';
-import { Carousel, Container, Badge, Button, Accordion, Placeholder, Card } from 'react-bootstrap';
+import { Fragment, useState, useEffect } from 'react';
+
+import { Carousel, Container, Button, Accordion, Placeholder, Card } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import '../App.css';
@@ -18,12 +18,6 @@ export default function Variants(props) {
     const [product, setProduct] = useState("");
     const [selectedVariant, setSelectedVariant] = useState("");
 
-    const navigate = useNavigate()
-
-    // const context = useContext(ProductsContext);
-    // const product = context.getProductById(parseInt(productId))
-    // console.log(product)
-
 
     const getProductData = async (productId) => {
         let response = await axios.get(BASE_URL + `products/${productId}`)
@@ -37,29 +31,14 @@ export default function Variants(props) {
         setSelectedVariant(e.target.value)
     }
 
-    // const getProduct = async (productId) => {
-    //     let response = await axios.get(BASE_URL + productId)
-    //     const product = response.data.product
-    //     setProduct(product)
-    // }
-
-    // useEffect(() => {
-
-    //     const fetchVariants = async () => {
-    //         await getVariants(productId)
-    //     }
-    //     fetchVariants();
-    // }, [])
 
     useEffect(() => {
         const fetchProductData = async () => {
             await getProductData(productId)
         }
-        // const fetchVariants = async () => {
-        //     await getVariants(productId)
-        // }
+
         fetchProductData();
-        // fetchVariants();
+
     }, [])
 
     const addToCart = async () => {

@@ -64,9 +64,6 @@ export default function ProductsProvider(props) {
         getCuttings: () => {
             return products.cuttings
         },
-        getPositions: () => {
-            return products.positions
-        },
         getNewProducts: async () => {
             let response = await axios.get(BASE_URL + '/products/new')
             return response.data
