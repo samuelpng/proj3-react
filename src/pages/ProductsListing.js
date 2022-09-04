@@ -192,10 +192,8 @@ export default function ProductsListing(props) {
         }
 
 
-        // console.log(searchQuery)
-
         const results = await context.search(searchQuery)
-        console.log(results)
+
 
         setSearchResults(results)
     }
@@ -210,7 +208,6 @@ export default function ProductsListing(props) {
                         <img src="/images/bootroom.png" style={{width:"100%"}} className="mb-3"></img>
                     </div>
                 <Container>
-                    {/* {brandSearch ? <span className="mb-3">Applied: {brandSearch} </span>: ""}  */}
                    
                     <div className="row">
                         <div className="col-lg-9 d-flex">
@@ -220,10 +217,6 @@ export default function ProductsListing(props) {
                             <Button variant="dark rounded-0" onClick={search} className=" mb-3 " style={{ width: "20%" }}> Search
                             </Button>
                         </div>
-                        {/* <div className="col-lg-3">
-                            <Button variant="dark rounded-0" onClick={toggleShow} py-0 className=" mb-3 "> Search
-                            </Button>
-                        </div> */}
                         <div className="col-lg-3">
                             <Button variant="dark rounded-0 mb-3" onClick={toggleShow} style={{ width: '100%' }}>
                                 Filters

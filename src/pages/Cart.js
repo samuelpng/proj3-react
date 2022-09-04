@@ -172,7 +172,7 @@ export default function Cart() {
                 </div>
 
                 :
-                <p>There are no items in your shopping</p>
+                <p className="py-4 lead text-center">There are no items in your shopping cart</p>
               }
 
             </Fragment>

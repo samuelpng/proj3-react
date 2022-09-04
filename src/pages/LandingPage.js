@@ -93,7 +93,7 @@ export default function LandingPage() {
           </a>
         </div>
       </div>
-      
+      <div style={{ height: "40px" }}></div>
 
     </Fragment>
   )
