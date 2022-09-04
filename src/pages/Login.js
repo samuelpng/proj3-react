@@ -14,9 +14,9 @@ export default function Login() {
   })
 
   const updateFormField = (e) => {
-    setFormData({ 
-      ...formData, 
-      [e.target.name]: e.target.value 
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
     })
   }
 
@@ -35,8 +35,10 @@ export default function Login() {
     <Fragment>
       <Container>
         <div className="row mt-3">
-          <div className="form mx-auto col-md-6 col-lg-5 mt-4 p-4" style={{ border: "1px solid lightslategray" }}>
-            <h1 className="text-center">Sign In</h1>
+          <div className="form mx-auto col-md-6 col-lg-5 mt-4 p-4 shadow-lg" style={{ border: "1px solid lightslategray" }}>
+            <h1 className="text-center" style={{ fontFamily: "Righteous" }}>Sign In</h1>
+            <img src="/images/kickscity-logo.png" style={{ width: "50%", marginLeft: "25%" }}></img>
+
             {/* <p className="text-center">Lets us create your account</p> */}
             <Form className="register-form my-4">
               <Form.Control type="text" name="email" className="form-input bg-transparent rounded-0 mb-3"
@@ -45,12 +47,13 @@ export default function Login() {
                 placeholder="Username *" value={formData.username} onChange={updateFormField} />              */}
               <Form.Control type="password" name="password" className="form-input bg-transparent rounded-0 mb-3"
                 placeholder="Password" value={formData.password} onChange={updateFormField} />
-      
+
 
               <div className="d-grid mt-4">
                 <Button variant="dark" className="rounded-0 py-2" type="button" onClick={login}>SIGN IN</Button>
               </div>
             </Form>
+            <p class="text-center">Don't have an account? <a href="/register">Register here</a></p>
           </div>
         </div>
       </Container>

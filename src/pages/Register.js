@@ -95,7 +95,7 @@ export default function Register() {
     <Fragment>
       <Container>
         <div className="row mt-3">
-          <div className="form mx-auto col-md-6 col-lg-5 mt-4 p-4" style={{ border: "1px solid lightslategray" }}>
+          <div className="form mx-auto col-md-6 col-lg-5 mt-4 p-4 shadow-lg" style={{ border: "1px solid lightslategray" }}>
             <h1 className="text-center">Register</h1>
             <p className="text-center">Lets us create your account</p>
             <Form className="register-form my-4">

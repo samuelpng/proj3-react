@@ -1,25 +1,13 @@
-/* below is for centering navbar when collapse */
-/* .navbar .navbar-nav {
-  display: inline-block;
-  float: none;
-  vertical-align: top;
-}
-
-.navbar .navbar-collapse {
-  text-align: center;
-} */
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 
 body {
-  width: 100%;
-  height: 100%
+  overflow-x: hidden;
 }
 
 .landing-carousel {
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 
 }
-
-
 
 .card {
   border: 0px !important
@@ -353,5 +341,6 @@ body {
   .button-dark {
     padding: 6px 25px;
   }
+
 
 }

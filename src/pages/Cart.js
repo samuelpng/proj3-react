@@ -9,28 +9,36 @@ import userEvent from "@testing-library/user-event";
 
 export default function Cart() {
 
-  const [loggedIn, setLoggedIn] = useState(true)
+  const [loggedIn, setLoggedIn] = useState(false)
   const [cartItems, setCartItems] = useState([])
   const [quantity, setQuantity] = useState({})
   const [total, setTotal] = useState([])
-  const [selectedVariant, setSelectedVariant] = useState({})
+  // const [selectedVariant, setSelectedVariant] = useState({})
 
   const context = useContext(CustomerContext)
   const customerData = JSON.parse(localStorage.getItem("customer"))
 
 
   useEffect(() => {
-    const auth = context.checkIfAuth()
-    if (auth) {
-      getCartItems()
+
+    if (localStorage.getItem('accessToken')) {
+      setLoggedIn(true)
     } else {
       setLoggedIn(false)
-      toast.error("You need to log in to access your shopping cart")
     }
+
+    const auth = context.checkIfAuth()
+
+    if (auth) {
+      getCartItems()
+    } 
+    // else {
+
+    //   toast.error("You need to log in to access your shopping cart")
+    // }
   }, [])
 
   const getCartItems = async () => {
-    const customerId = customerData.id
     const response = await context.getCartItems()
     setCartItems(response)
     const qty = {}
@@ -92,11 +100,11 @@ export default function Cart() {
     <Fragment>
       <Container>
         <div className="row">
-          <h1 className="px-5">My Cart</h1>
+          <h1 className="px-5 text-center mt-4" style={{fontFamily:"Righteous"}}>My Cart</h1>
           {loggedIn ?
 
             <Fragment>
-              {cartItems.length !== 0 ?
+              {cartItems && cartItems.length !== 0 ?
                 <div className="row mt-3 px-4 px-lg-5">
                   <div className="col-12 col-lg-7">
 
@@ -171,7 +179,7 @@ export default function Cart() {
 
             :
             <div>
-              <p className="cart-message py-4 lead text-center">Please log in to view or add items to your shopping cart.</p>
+              <p className="py-4 lead text-center">Please log in to view or add items to your shopping cart.</p>
             </div>
           }
         </div>

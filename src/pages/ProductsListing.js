@@ -40,10 +40,18 @@ export default function ProductsListing(props) {
     // const params = useParams()
     const { brand_id } = useParams()
 
+    const initialBrandSearch = (brand_id) => {
+        if(brand_id === "1" || brand_id === "2" || brand_id === "3" ) {
+            let brand = brandSearch.slice()
+            brand.push(brand_id)
+            setBrandSearch(brand)
+        }
+            search()
+    }
+
     //show products when page loaded
     useEffect(() => {
         initialBrandSearch(brand_id)
-        // search()
     }, [])
     //reset search when state changes 
     useEffect(() => {
@@ -63,14 +71,6 @@ export default function ProductsListing(props) {
 
     const updateGlobalSearch = (q) => {
         setGlobalSearch(q)
-    }
-
-    const initialBrandSearch = (brand_id) => {
-        let brand = brandSearch.slice()
-            brand.push(brand_id)
-            setBrandSearch(brand)
-
-            // search()
     }
 
     const updateBrandSearch = (e) => {
@@ -218,9 +218,12 @@ export default function ProductsListing(props) {
     if (searchResults) {
         return (
             <Fragment>
+                 <div>
+                        <img src="/images/bootroom.png" style={{width:"100%"}} className="mb-3"></img>
+                    </div>
                 <Container>
                     {/* {brandSearch ? <span className="mb-3">Applied: {brandSearch} </span>: ""}  */}
-                    <h1>Boot Room</h1>
+                   
                     <div className="row">
                         <div className="col-lg-9 d-flex">
                             <input id='globalSearch' name='globalSearch' type="text" className='form-control rounded-0 mb-3' style={{ width: "80%" }}

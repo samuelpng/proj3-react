@@ -51,12 +51,12 @@ export default function LandingPage() {
 
   return (
     <Fragment>
-      <div>
+      <div >
         <LandingCarousel />
       </div>
 
-      <div className="new-arrivals p-5">
-        <h1 className="text-center">LATEST ARRIVALS</h1>
+      <div className="new-arrivals p-5 mt-3">
+        <h1 className="text-center" style={{fontFamily:"Righteous"}}>LATEST ARRIVALS</h1>
         <div >
           <Carousel responsive={responsive}>
             {newProducts ?
@@ -80,7 +80,7 @@ export default function LandingPage() {
       </div>
 
       <div>
-        <h1 className="text-center">SHOP BRANDS</h1>
+        <h1 className="text-center mt-3" style={{fontFamily:"Righteous"}}>SHOP BRANDS</h1>
         <div className="row ">
           <a className="col-md-4 p-3" href="/boots/3">
             <img src="/images/puma.png" style={{ width: "100%" }}></img>

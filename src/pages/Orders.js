@@ -9,16 +9,19 @@ export default function Orders() {
 
   const context = useContext(CustomerContext)
   const [orderItems, setOrderItems] = useState(([]));
-  const [loggedIn, setLoggedIn] = useState(true)
+  const [loggedIn, setLoggedIn] = useState(false)
 
   useEffect(() => {
+    if (localStorage.getItem('accessToken')) {
+      setLoggedIn(true)
+    } else {
+      setLoggedIn(false)
+    }
+
     const auth = context.checkIfAuth()
     if (auth) {
       getOrders()
-    } else {
-      setLoggedIn(false)
-      toast.error("You need to log in to access your order page")
-    }
+    } 
   }, [])
 
   const getOrders = async () => {
@@ -30,7 +33,8 @@ export default function Orders() {
   return (
     <Fragment>
       <Container>
-        <h1>Order History</h1>
+        <h2 className="text-center mt-4" style={{fontFamily:"Righteous"}}>My Orders</h2>
+        {loggedIn ?
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -55,23 +59,10 @@ export default function Orders() {
                 </tr>            
               ))}
             </tbody>
-            : <h1>You have no order items</h1>}
+            : <h4>You have no order items</h4>}
         </Table>
 
-
-
-        {/* <h4>Orders</h4>
-        <ListGroup variant="flush">
-          {orderItems ?
-
-            <ListGroup.Item>
-              <div className="row">
-                hu
-              </div>
-            </ListGroup.Item>
-
-            : <h1>You have no order items</h1>}
-        </ListGroup> */}
+        : <p className="py-4 lead text-center">Please log in to view your Order History</p>}
       </Container>
     </Fragment>
   )

@@ -233,7 +233,6 @@ export default function CustomerProvider(props) {
                 } else {
                     return false
                 }
-                // return true
             } else {
                 return false
             }
@@ -248,7 +247,6 @@ export default function CustomerProvider(props) {
         },
         deleteCartItem: async (customerId, variantId) => {
             let response = await deleteCartItem(customerId, variantId)
-            console.log('blablbla')
             return response
         },
         checkout: async () => {
