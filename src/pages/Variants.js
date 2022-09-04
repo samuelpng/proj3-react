@@ -9,8 +9,8 @@ import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Variants(props) {
-    // const BASE_URL = 'https://kicks-city.herokuapp.com/api/products/'
-    const BASE_URL = 'https://8000-samuelpng-proj3express-iwcbe9cedes.ws-us63.gitpod.io/api/'
+    
+    const BASE_URL = 'https://kicks-city.herokuapp.com/api/'
 
 
     const { productId } = useParams();

@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import axios from 'axios'
 import CustomerContext from "../contexts/CustomerContext";
 
-const BASE_URL = "https://8000-samuelpng-proj3express-iwcbe9cedes.ws-us63.gitpod.io/api"
+const BASE_URL = "https://kicks-city.herokuapp.com/api"
 
 export default function Profile(props) {
 

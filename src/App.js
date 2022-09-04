@@ -40,6 +40,7 @@ function App() {
               <Route path="/stripe" element={<Stripe />} />
               <Route path="/orders" element={<Orders />} />
             </Routes>
+         
           </ProductsProvider>
         </CustomerProvider>
       </Router>

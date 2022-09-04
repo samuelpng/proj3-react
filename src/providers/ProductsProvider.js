@@ -5,8 +5,7 @@ import axios from 'axios';
 //=== Contexts ===
 import ProductsContext from "../contexts/ProductsContext";
 
-// const BASE_URL = 'https://kicks-city.herokuapp.com/api';
-const BASE_URL = 'https://8000-samuelpng-proj3express-iwcbe9cedes.ws-us63.gitpod.io/api'
+const BASE_URL = 'https://kicks-city.herokuapp.com/api'
 
 export default function ProductsProvider(props) {
 

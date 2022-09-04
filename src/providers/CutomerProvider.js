@@ -9,8 +9,8 @@ import 'react-toastify/dist/ReactToastify.css';
 //=== Contexts ===
 import CustomerContext from '../contexts/CustomerContext';
 
-// const BASE_URL = 'https://kicks-city.herokuapp.com/api';
-const BASE_URL = 'https://8000-samuelpng-proj3express-iwcbe9cedes.ws-us63.gitpod.io/api'
+
+const BASE_URL = 'https://kicks-city.herokuapp.com/api'
 
 export default function CustomerProvider(props) {
     const [stripeSessionData, setStripeSessionData] = useState('');
