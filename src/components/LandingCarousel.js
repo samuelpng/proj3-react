@@ -37,7 +37,7 @@ export default function LandingCarousel() {
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="/images/3.png"
+                src="/images/13.png"
                 alt="Puma Future"
               />
 

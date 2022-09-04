@@ -80,7 +80,7 @@ export default function LandingPage() {
       </div>
 
       <div>
-        <h1 className="text-center mt-3" style={{fontFamily:"Righteous"}}>SHOP BRANDS</h1>
+        <h1 className="text-center my-3" style={{fontFamily:"Righteous"}}>SHOP BRANDS</h1>
         <div className="row ">
           <a className="col-md-4 p-3" href="/boots/3">
             <img src="/images/puma.png" style={{ width: "100%" }}></img>
@@ -93,6 +93,7 @@ export default function LandingPage() {
           </a>
         </div>
       </div>
+      
 
     </Fragment>
   )
