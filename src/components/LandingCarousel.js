@@ -37,14 +37,14 @@ export default function LandingCarousel() {
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="/images/13.png"
+                src="/images/3.png"
                 alt="Puma Future"
               />
 
               <Carousel.Caption className="landing-carousel">
                 <h3>PUMA FUTURE 1.3</h3>
                 <h5>LOCK IN. DRIVE THEM CRAZY.</h5>
-                <a className="button-dark" href="/products/5">Shop Now</a>
+                <a className="button-dark" href="/products/13">Shop Now</a>
               </Carousel.Caption>
             </Carousel.Item>
           </Carousel>
