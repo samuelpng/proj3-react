@@ -193,8 +193,8 @@ export default function Variants(props) {
                                     <Fragment>
                                         {p.id !== product.id ?
                                             <div className="col-12 col-md-6 col-lg-3 mb-2" key={p.id}>
-
-                                                <Card style={{ cursor: "pointer", textDecoration: 'none', color: 'black' }} as={Link} to={`/products/${p.id}`}>
+                                                <a href={`/products/${p.id}`} style={{textDecoration:"none"}}>
+                                                <Card style={{ cursor: "pointer", textDecoration: 'none', color: 'black' }}>
                                                     <Card.Img variant="top" src={p.image_url} />
                                                     <Card.Img variant="top" className="back-img" src={p.image_url2} />
                                                     <Card.Body>
@@ -205,6 +205,7 @@ export default function Variants(props) {
                                                         </Card.Text>
                                                     </Card.Body>
                                                 </Card>
+                                                </a>
                                             </div>
                                             : null}
                                     </Fragment>
