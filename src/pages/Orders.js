@@ -59,7 +59,7 @@ export default function Orders() {
                 </tr>            
               ))}
             </tbody>
-            : <h4>You have no order items</h4>}
+            : <p className="py-4 lead text-center">You have no order items</p>}
         </Table>
 
         : <p className="py-4 lead text-center">Please log in to view your Order History</p>}
