@@ -155,7 +155,7 @@ export default function Variants(props) {
                             {variants.map(v => <div className="mt-2">{selectedVariant === `${v.id}` ?
 
                                 (parseInt(v.stock) > 5) ?
-                                    <span key={v.id}>{v.stock} stocks available </span> :
+                                    null :
                                     <span key={v.id} style={{ color: 'red' }}> Only {v.stock} stocks left </span>
 
                                 : null}</div>)}
