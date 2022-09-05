@@ -36,6 +36,7 @@ export default function ProductsListing(props) {
     const [searchResults, setSearchResults] = useState([])
     const [isFetched, setisFetched] = useState(false)
 
+  
     // const params = useParams()
     const { brand_id } = useParams()
 
@@ -72,9 +73,9 @@ export default function ProductsListing(props) {
             setBrandSearch(brand)
             setisFetched(true)
         } else {
+            setisFetched(true)
             search()
         }
-            
     }
 
     const updateBrandSearch = (e) => {
@@ -161,9 +162,19 @@ export default function ProductsListing(props) {
             setCuttingSearch(clone)
         }
     }
+    
+    const clearFilters = () => {
+        setGlobalSearch('');
+        setBrandSearch([]);
+        setCollectionSearch([]);
+        setMaterialSearch([]);
+        setColourSearch([]);
+        setSurfaceSearch([]);
+        setClosureSearch([]);
+        setCuttingSearch([]);
+    }
+
    
-
-
     const search = async () => {
         let searchQuery = {}
         if (globalSearch) {
@@ -238,7 +249,7 @@ export default function ProductsListing(props) {
                 <Offcanvas show={show} onHide={handleClose} {...props}
                     scroll={true} backdrop={true} placement={'end'}>
                     <Offcanvas.Header closeButton>
-                        <Offcanvas.Title>Filter <span className="resetFilters">Clear All</span></Offcanvas.Title>
+                        <Offcanvas.Title>Filter <span className="resetFilters" onClick={clearFilters}>Clear All</span></Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body>
 
