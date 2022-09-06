@@ -3,7 +3,7 @@
 Access live demo site [here](https://kicks-city.netlify.app/)
 
 <figure>
-    <img src="/readme/kicks-city-mockup.png" height="450" alt="Device Mockups for Kicks City">
+    <img src="readme/kicks-city-mockup.png" height="450" alt="Device Mockups for Kicks City">
 </figure>
 
 Test Accounts:
@@ -106,7 +106,7 @@ Logical Schema is drawn up based on the ERD diagram to show the relationship bet
 | [Axios](https://axios-http.com/docs/intro) | HTTP Client |
 | [React Bootstrap](https://react-bootstrap.github.io/) | BootStrap for React application |
 | [Bootstrap](https://getbootstrap.com/docs/5.0/getting-started/introduction/) | Used for styling of web application |
-| [React-multi-carousel] | Used for styling of new arrivals products in web application |
+| [React-multi-carousel](https://www.npmjs.com/package/react-multi-carousel) | Used for styling of new arrivals products in web application |
 | [Stripe](https://stripe.com/en-sg) | Payment gateway used in web application |
 
 
