@@ -48,9 +48,6 @@ ERD is drawn up to demonstrate the different relationship between enitities for 
 </figure>
 Logical Schema is drawn up based on the ERD diagram to show the relationship between tables and also the number of columns with its type defined.q  
 
-#### Wireframes
-
-<!-- to include wireframe -->
 
 #### Color scheme
 
@@ -118,7 +115,8 @@ Logical Schema is drawn up based on the ERD diagram to show the relationship bet
 
 ## Testing
 
-<!-- To add testing -->
+The website is tested for responsiveness using Developer Tools on Chrome browser for mobile, tablet and desktop screen widths. The test cases can be found [here](redme/kicks-city-test-case).
+
 
 ## Deployment
 
@@ -155,5 +153,6 @@ STRIPE_ENDPOINT_SECRET=
 ## Credits and Acknowledgement
 - Fonts are taken from [Google Fonts](https://fonts.google.com/)
 - Product and websites images are taken from [Nike](https://www.nike.com/sg/), [Adidas](https://www.adidas.com.sg/) and [Puma](https://sg.puma.com/)
+- Card loading css is taken adapted from [Harshil Moradia](https://harshilmoradia.medium.com/how-to-create-css-animated-loading-card-skeleton-ab0827795ae8)
 - Code for Stripe checkout is adapted from [Jerrysuper123](https://github.com/Jerrysuper123/artisanBread)
 - Responsive website mockup is created using [CreateMockup.com](https://www.createmockup.com/generate/)
