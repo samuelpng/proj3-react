@@ -50,6 +50,7 @@ Logical Schema is drawn up based on the ERD diagram to show the relationship bet
 
 
 #### Color scheme
+A monochromatic colour scheme has been chosen for a minimalistic design. This less-is-more approach to the colour scheme is chosen to eliminate any unnecessary details that don’t support the user experience. White or negative space is also used to enhance user focus on the content displayed.
 
 #### Fonts
 *Righteous* is the form family used for the headers in the website as it has letters with sharp edges that fits in with the website design
