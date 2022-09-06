@@ -158,6 +158,6 @@ STRIPE_ENDPOINT_SECRET=
 ## Credits and Acknowledgement
 - Fonts are taken from [Google Fonts](https://fonts.google.com/)
 - Product and websites images are taken from [Nike](https://www.nike.com/sg/), [Adidas](https://www.adidas.com.sg/) and [Puma](https://sg.puma.com/)
-- Card loading css is taken adapted from [Harshil Moradia](https://harshilmoradia.medium.com/how-to-create-css-animated-loading-card-skeleton-ab0827795ae8)
+- Card loading css is adapted from [Harshil Moradia](https://harshilmoradia.medium.com/how-to-create-css-animated-loading-card-skeleton-ab0827795ae8)
 - Code for Stripe checkout is adapted from [Jerrysuper123](https://github.com/Jerrysuper123/artisanBread)
 - Responsive website mockup is created using [CreateMockup.com](https://www.createmockup.com/generate/)
