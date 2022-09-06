@@ -50,7 +50,11 @@ Logical Schema is drawn up based on the ERD diagram to show the relationship bet
 
 
 #### Color scheme
-A monochromatic colour scheme has been chosen for a minimalistic design. This less-is-more approach to the colour scheme is chosen to eliminate any unnecessary details that don’t support the user experience. White or negative space is also used to enhance user focus on the content displayed.
+<figure>
+    <img src="readme/colour-palette.png" height="450" alt="Device Mockups for Kicks City">
+</figure>
+
+A monochromatic shades of black and white colour scheme has been chosen for a minimalistic design. White or negative space is also used to enhance user focus on the content displayed. This less-is-more approach to the colour scheme is chosen to eliminate any unnecessary details that do not support the user experience.
 
 #### Fonts
 *Righteous* is the form family used for the headers in the website as it has letters with sharp edges that fits in with the website design
