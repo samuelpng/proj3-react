@@ -37,9 +37,14 @@ To create an e-commerce web application selling football boots exclusively. The 
 
 #### Database
 
-<!-- to include erd and schema -->
+<figure>
+    <img src="readme/kicks-city-erd.png" height="450" alt="Device Mockups for Kicks City">
+</figure>
 ERD is drawn up to demonstrate the different relationship between enitities for the site before proceeding to model the database (SQL).
 
+<figure>
+    <img src="readme/kicks-city-schema.png" height="450" alt="Device Mockups for Kicks City">
+</figure>
 Logical Schema is drawn up based on the ERD diagram to show the relationship between tables and also the number of columns with its type defined.q  
 
 #### Wireframes
