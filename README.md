@@ -14,6 +14,7 @@ Test Accounts:
 2. Customer at https://kicks-city.netlify.app/
  - username: test@email.com
  - password: hello123
+ - to test out the checkout route, choose grabpay as payment method.
 
 ## Summary
 
