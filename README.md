@@ -1,4 +1,4 @@
-# Kicks Ciry
+# Kicks City
 
 Access live demo site [here](https://kicks-city.netlify.app/)
 
@@ -160,4 +160,5 @@ STRIPE_ENDPOINT_SECRET=
 - Product and websites images are taken from [Nike](https://www.nike.com/sg/), [Adidas](https://www.adidas.com.sg/) and [Puma](https://sg.puma.com/)
 - Card loading css is adapted from [Harshil Moradia](https://harshilmoradia.medium.com/how-to-create-css-animated-loading-card-skeleton-ab0827795ae8)
 - Code for Stripe checkout is adapted from [Jerrysuper123](https://github.com/Jerrysuper123/artisanBread)
+- [Paul Chor](https://github.com/kunxin-chor) for all his guidance and using his tutorials as references for the codes 
 - Responsive website mockup is created using [CreateMockup.com](https://www.createmockup.com/generate/)
