@@ -1,6 +1,6 @@
 # Kicks City
 
-Access live demo site [here](https://kicks-city.netlify.app/)
+Access live demo site [here](https://kicks-city.netlify.app/){:target="_blank"}
 
 <figure>
     <img src="readme/kicks-city-mockup.png" height="450" alt="Device Mockups for Kicks City">
