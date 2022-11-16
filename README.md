@@ -8,7 +8,7 @@ Access live demo site [here](https://kicks-city.netlify.app/target="_blank)
 
 Test Accounts:
 1. Admin Panel at https://kicks-city.herokuapp.com/users/login
- - email: samuel@kickscity.com
+ - email: samuel@kicks.com
  - password: hello123
 
 2. Customer at https://kicks-city.netlify.app/
